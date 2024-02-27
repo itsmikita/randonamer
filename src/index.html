@@ -3,9 +3,55 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Untitled Document</title>
+  <title>@itsmikita/randonamer</title>
+  <script src="https://unpkg.com/showdown/dist/showdown.min.js"></script>
+  <style type="text/css">
+    :root {
+      color-scheme: light dark;
+    }
+    body {
+      font-family: sans-serif;
+    }
+    pre, code {
+      font-family: monospace;
+    }
+    pre,
+    code {
+      background: black;
+      color: whitesmoke;
+      padding: 3px 9px;
+    }
+    pre {
+      padding: 1vh 2vw;
+      line-height: 1.4;
+    }
+    main {
+      padding: 1vh 4vw;
+    }
+  </style>
 </head>
 <body>
-  <h1>Hello World!</h1>
+  <main></main>
+  <script type="module">
+    import {
+      generateRandomBinaryPersonName,
+      generateRandomFemalePersonName,
+      generateRandomMalePersonName,
+      generateRandomPhrase
+    } from "./index.js";
+
+    const binary = generateRandomBinaryPersonName(3, " ");
+    const female = generateRandomFemalePersonName(2, "_");
+    const male = generateRandomMalePersonName(1, "@");
+    const phrase = generateRandomPhrase("_");
+
+    console.log(phrase, male, female, binary);
+
+    const converter = new showdown.Converter();
+    const md = await fetch("./README.md");
+    const html = converter.makeHtml(await md.text());
+    console.log(html);
+    document.querySelector("main").innerHTML = html;
+  </script>
 </body>
 </html>
